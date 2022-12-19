@@ -1,0 +1,13 @@
+{
+  "name": "@bezomoney/docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build",
+    "dev": "docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve",
+    "clean": "rimraf build/",
+    "setup": "docker pull slatedocs/slate"
+  }
+}

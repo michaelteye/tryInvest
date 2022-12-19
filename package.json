@@ -1,0 +1,59 @@
+{
+  "name": "bezomoney",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "dev": "wsrun dev",
+    "build": "wsrun build",
+    "clean": "wsrun clean",
+    "setup": "node .setup.js && wsrun setup",
+    "commit": "git-cz",
+    "test": "wsrun -m test:e2e",
+    "format": "wsrun -m format"
+  },
+  "dependencies": {
+    "commitizen": "^4.2.4",
+    "dotenv-cli": "^5.1.0",
+    "husky": "^7.0.4",
+    "referral-codes": "^2.0.3",
+    "wsrun": "^5.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

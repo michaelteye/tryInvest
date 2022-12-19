@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bezo-settings
+  namespace: bezo-dev
+  labels:
+    app: bezo-settings
+data:
+  POSTGRES_USER: bezouser
+  POSTGRES_SERVER: bezo-postgres-service
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: bezo
+  MAIL_FROM: noreply@bezo.com
+  ENVIRONMENT: development
+  SMS_API: "https://sms.kologsoft.com/sms/api?action=send-sms&api_key=OjJlenNiTENlWmRxTllnSw==&"
+  AZURE_STORAGE_CONTAINER: bezosusucontainer

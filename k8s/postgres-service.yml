@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bezo-postgres-service
+  namespace: bezo-dev
+  labels:
+    app: bezo-postgres
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+  selector:
+    app: bezo-postgres

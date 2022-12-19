@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bezo-postgres
+  namespace: bezo-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bezo-postgres
+  template:
+    metadata:
+      labels:
+        app: bezo-postgres
+    spec:
+      containers:
+        - name: bezo-postgres
+          image: postgres:12-alpine
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: bezo-settings
+                  key: POSTGRES_USER
+            - name: POSTGRES_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: bezo-settings
+                  key: POSTGRES_SERVER
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: bezo-settings
+                  key: POSTGRES_PORT
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: bezo-settings
+                  key: POSTGRES_DB
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bezo-secret
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - mountPath: /var/lib/bezopostgresql/data
+              name: bezo-postgresdb
+      volumes:
+        - name: bezo-postgresdb
+          persistentVolumeClaim:
+            claimName: bezo-postgres-pv-claim

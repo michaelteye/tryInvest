@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  gopele:
+    container_name: bezo
+    image: bezo:1.0
+
+    build:
+      context: ./packages/core
+      dockerfile: dockerfile
+    ports:
+      - 7200:80
